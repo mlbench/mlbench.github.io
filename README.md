@@ -103,6 +103,11 @@ Hyde has two branches, but only one is used for active development.
 - `master` for development.  **All pull requests should be submitted against `master`.**
 - `gh-pages` for our hosted site, which includes our analytics tracking code. **Please avoid using this branch.**
 
+To run Jekyll locally, use 
+```bash
+jekyll serve --config _config.yml,_debug.yml
+```
+Then open `http://localhost:4000/` in your browser.
 
 ## Author
 
