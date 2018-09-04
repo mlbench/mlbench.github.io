@@ -1,10 +1,21 @@
 ---
 layout: default
 ---
+<!-- Look the author details up from the site config. -->
+{% assign author = site.data.authors[page.author] %}
+
 
 <div class="post">
   <h1 class="post-title">{{ page.title }}</h1>
-  <span class="post-date">{{ page.date | date_to_string }}</span>
+  <span class="post-date">
+    {{ page.date | date_to_string }}
+
+    <!-- Output author details if some exist. -->
+    {% if author %}
+      <!-- Personal Info. -->
+      - Written by <a href="{{ author.web }}" target="_blank">{{ author.name }}</a>
+    {% endif %}
+  </span>
   {{ content }}
 </div>
 
@@ -23,3 +34,10 @@ layout: default
     {% endfor %}
   </ul>
 </div>
+
+<script src="https://utteranc.es/client.js"
+        repo="mlbench/mlbench.github.io"
+        issue-term="pathname"
+        crossorigin="anonymous"
+        async>
+</script>

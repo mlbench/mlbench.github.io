@@ -14,7 +14,11 @@ title: Blog
 
     <span class="post-date">{{ post.date | date_to_string }}</span>
 
-    {{ post.content }}
+    {{ post.excerpt }}
+
+    {% if post.excerpt != post.content %}
+        <a href="{{ post.url }}">Read more</a>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
