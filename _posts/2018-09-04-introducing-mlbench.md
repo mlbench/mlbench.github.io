@@ -3,6 +3,7 @@ layout: post
 title: Introducing MLBench
 author: r_grubenmann
 published: true
+tags: [introduction]
 excerpt_separator: <!--more-->
 ---
 MLBench is a benchmarking framework for comparing distributed machine learning algorithms on different platforms, infrastructure and topology.
