@@ -63,7 +63,7 @@ The definitions helm chart values can be found [here](https://mlbench.readthedoc
 
 **Linear scaling rule**
 
-The `reference learning rate` in the previous table comes from *Linear Scaling Rule* [^goyal2017accurate]. In [^fnkaiming15deep] they use learning rate 0.1 for k * n=2 * 128 = 256, so using the `reference learning rate` above can recover their settings.
+The `reference learning rate` in the previous table comes from *Linear Scaling Rule* [^goyal2017accurate]. In [^fnkaiming15deep] they use learning rate 0.1 for k * b=2 * 128 = 256, so using the `reference learning rate` above can recover their settings.
 
 **Version of source code**
 commit 
