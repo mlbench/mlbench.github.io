@@ -34,4 +34,4 @@ We hope that this will help to further research and innovation as well as allowi
 
 ### Getting Started
 
-Please refer to our [in-depth tutorial]({% post_url 2018-09-04-tutorial %}) to see how to set up and use MLBench.
+Please refer to our [in-depth tutorial]({% post_url 2018-09-10-tutorial %}) to see how to set up and use MLBench.
