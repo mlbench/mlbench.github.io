@@ -7,7 +7,7 @@ permalink:        pretty
 # Setup
 title:            'MLBench '
 tagline:          'Distributed Machine Learning Benchmark'
-description:      'A public and reproducible collection of reference implementations and benchmark suite for <u>distributed machine learning</u> algorithm, frameworks and systems.'
+description:      'A public and reproducible collection of reference implementations and benchmark suite for <u>distributed machine learning</u> algorithms, frameworks and systems.'
 url:              http://mlbench.github.io
 baseurl:          'https://mlbench.github.io/'
 

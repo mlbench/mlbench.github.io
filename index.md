@@ -12,8 +12,10 @@ title: Home
 
 
 <p>
-MLBench is a framework for distributed machine learning. Its purpose is to improve transparency, reproducibility, robustness, and to provide fair performance measures as well as reference implementations, helping adoption of distributed machine learning methods both in industry and in the academic community.<br />
+MLBench is a framework for distributed machine learning. Its purpose is to improve transparency, reproducibility, robustness, and to provide fair performance measures as well as reference implementations, helping adoption of distributed machine learning methods both in industry and in the academic community.
+</p>
 
+<p>
 MLBench is public, open source and vendor independent, and has two main goals:
 
     <ul>
@@ -24,12 +26,16 @@ MLBench is public, open source and vendor independent, and has two main goals:
 </p>
 
 <p>
+Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
+</p>
+
+<p>
 <h2>Resources and Community:</h2>
 
     <ul>
-        <li>[Github](https://github.com/mlbench/)</li>
+        <li>Github: <a href="https://github.com/mlbench/">github.com/mlbench</a>.</li>
         <li>Documentation: <a href="https://mlbench.readthedocs.io">https://mlbench.readthedocs.io</a>.</li>
-        <li>[Mailing list](https://groups.google.com/d/forum/mlbench)
+        <li>Mailing list: <a href="https://groups.google.com/d/forum/mlbench">groups.google.com/d/forum/mlbench</a>.</li>
     </ul>
 
     <h2>Features</h2>
