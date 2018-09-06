@@ -8,31 +8,25 @@ In this post, we benchmark MLBench Framework on Google Cloud Kubernetes Instance
 
 _Note: since we do not have enough quotas for 64 gpus, only cpus are used._
 
-**questions**
-A few questions to be answered:
-1. where to store github gist (for the moment I keep it to my account)
-2. how do we keep the experiment results? (where and in which format)
-3. shall we keep preprocessing scripts as gist?
-4. optimize the Helm Chart Values for cpu and bandwidth.
-
-
 ## Settings
 ### Hardware/Platform
 
 |key|value|
 |:---:|:---:|
-|machine type | [preemptible n1-standard-4](https://cloud.google.com/compute/pricing) |
+|machine type | [n1-standard-4](https://cloud.google.com/compute/pricing) : 4 vCPUs, 15GB memory (note if the job last more than 24 hours, then do not choose preemptible)|
 |accelerator| None|
 |instance disk size|  50 GB|
+|instance disk type| pd-standard|
 |worker pod per node| 1 |
 
 ### Helm Chart Values
+The definitions helm chart values can be found [here](https://mlbench.readthedocs.io/en/develop/installation.html#helm-chart-values).
 
 |key|value|
 |:---:|:---:|
 |limits.cpu| 1000m|
 |limits.maximumWorkers| 1|
-|limits.bandwidth| 100|
+|limits.bandwidth| 10000|
 
 ### Experiment Configurations
 
@@ -43,20 +37,23 @@ A few questions to be answered:
 |dataset preprocessing| described in [^fnkaiming15deep]|
 |minibatch per worker (n)| 32 |
 |number of workers (k)| 2, 4, 8, 16, 32, 64 |
-|reference learning rate | 0.1 * k * n/256|
+|learning rate per sample| 0.1 / 256|
+|scaled learning rate | k * n * (learning rate per sample) |
 |train epochs | 164 |
-|LR schedule | Starting from reference learning rate and reduce by 1/10 at the 82-th, 109-th epoch [^fnkaiming15deep]. Gradual warmup for the first 5 epochs.|
+|LR schedule | Starting from reference learning rate and reduce by 1/10 at the 82-th, 109-th epoch [^fnkaiming15deep].|
+|warmup| warmup lr for the first 5 epochs and starts with 0|
 |weight decay| 0.0001|
 |momentum | 0.9|
-|#parallel workers (data loading)| 2 |
+|nesterov | True|
+|#parallel workers (data loading)| 0 |
 |communication backend| MPI|
-|criterion| CrossEntropyLoss|
-
 
 **Linear scaling rule**
 
-The `reference learning rate` in the previous table comes from *Linear Scaling Rule* [^goyal2017accurate]. In [^fnkaiming15deep] they use learning rate 0.1 for $k*n=2*128=256$, so using the `reference learning rate` above can recover their settings.
+The `reference learning rate` in the previous table comes from *Linear Scaling Rule* [^goyal2017accurate]. In [^fnkaiming15deep] they use learning rate 0.1 for k * n=2 * 128 = 256, so using the `reference learning rate` above can recover their settings.
 
+**Version of source code**
+commit 
 
 ## Cluster Management
 Scripts to create/scale/delete cluster.
