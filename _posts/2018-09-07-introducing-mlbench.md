@@ -17,14 +17,14 @@ MLBench is a framework for distributed machine learning. Its purpose is to impro
 MLBench is developed completely open-source and vendor-independent, and has two main goals: 
 
 1. to be an easy-to-use and fair benchmarking suite for algorithms as well as for systems (software frameworks and hardware).
-2. to provide re-usable and reliable reference implementations of distributed ML algorithms
+2. to provide re-usable and reliable reference implementations of distributed ML algorithms.
 
 
 ### Main Features
 
-MLBench is based on [Kubernetes](https://kubernetes.io/) to ease deployment in a distributed setting, and supports several standard machine-learning frameworks
+MLBench is based on [Kubernetes](https://kubernetes.io/) to ease deployment in a distributed setting, both on public clouds and on dedicated hardware. It supports several standard machine-learning frameworks and algorithms
 
-* **Easy setup**: MLBench can be installed with a single shell command, on public clouds as well as on standard hardware.
+* **Easy setup**: MLBench can be installed with a single shell command.
 * **Convenient Dashboard**: MLBench comes with a dashboard that allows easy access and management for running experiments
     - **Monitoring**: The dashboard allows you to monitor resource usage of all worker nodes participating in experiments
     - **Experiment Setup**: Easily start one of the reference experiments or define your own, specifying resource usage, number of nodes, type of experiment and more.
@@ -37,9 +37,9 @@ MLBench is based on [Kubernetes](https://kubernetes.io/) to ease deployment in a
 
 Our project is open, vendor independent and backed by academic standards, and we highly value contributions from the community
 
-Github: https://github.com/mlbench/
+- [Github](https://github.com/mlbench/)
 
-Mailing list: https://groups.google.com/d/forum/mlbench
+- [Mailing list](https://groups.google.com/d/forum/mlbench)
 
 ### Getting Started
 
