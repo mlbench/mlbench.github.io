@@ -34,7 +34,7 @@ Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
 
     <ul>
         <li>Github: <a href="https://github.com/mlbench/">github.com/mlbench</a>.</li>
-        <li>Documentation: <a href="https://mlbench.readthedocs.io">https://mlbench.readthedocs.io</a>.</li>
+        <li>Documentation: <a href="https://mlbench.readthedocs.io">mlbench.readthedocs.io</a>.</li>
         <li>Mailing list: <a href="https://groups.google.com/d/forum/mlbench">groups.google.com/d/forum/mlbench</a>.</li>
     </ul>
 
