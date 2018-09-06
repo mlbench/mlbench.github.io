@@ -23,7 +23,8 @@ MLBench is public, open source and vendor independent, and has two main goals:
 
 </p>
 
-<h2>Ressources and Community:</h2>
+<p>
+<h2>Resources and Community:</h2>
 
     <ul>
         <li>[Github](https://github.com/mlbench/)</li>
@@ -41,4 +42,6 @@ MLBench is public, open source and vendor independent, and has two main goals:
         <li>Independently of all solver implementations, we provide universal <strong>evaluation code</strong> allowing to compare the result metrics of different solvers and frameworks.</li>
         <li>Our benchmark code is easy to run on the <strong>public cloud</strong>.</li>
     </ul>
+    
+</p>
 
