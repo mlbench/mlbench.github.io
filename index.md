@@ -11,17 +11,26 @@ title: Home
 
 
 
-<p>A public and reproducible collection of reference implementations and benchmark suite for distributed machine learning systems. Benchmark for large scale solvers, implemented on different software frameworks & systems.
-<strong>This is a work in progress and not usable so far</strong>
+<p>
+MLBench is a framework for distributed machine learning. Its purpose is to improve transparency, reproducibility, robustness, and to provide fair performance measures as well as reference implementations, helping adoption of distributed machine learning methods both in industry and in the academic community.<br />
 
+MLBench is public, open source and vendor independent, and has two main goals:
 
     <ul>
-        <li>Free software: Apache Software License 2.0</li>
-        <li>Documentation: <a href="https://mlbench.readthedocs.io">https://mlbench.readthedocs.io</a>.</li>
+        <li>to be an easy-to-use and fair benchmarking suite for algorithms as well as for systems (software frameworks and hardware).</li>
+        <li>to provide re-usable and reliable reference implementations of distributed ML algorithms.</li>
     </ul>
+
 </p>
 
-<p>
+<h2>Ressources and Community:</h2>
+
+    <ul>
+        <li>[Github](https://github.com/mlbench/)</li>
+        <li>Documentation: <a href="https://mlbench.readthedocs.io">https://mlbench.readthedocs.io</a>.</li>
+        <li>[Mailing list](https://groups.google.com/d/forum/mlbench)
+    </ul>
+
     <h2>Features</h2>
 
     <ul>
@@ -32,5 +41,4 @@ title: Home
         <li>Independently of all solver implementations, we provide universal <strong>evaluation code</strong> allowing to compare the result metrics of different solvers and frameworks.</li>
         <li>Our benchmark code is easy to run on the <strong>public cloud</strong>.</li>
     </ul>
-</p>
 
