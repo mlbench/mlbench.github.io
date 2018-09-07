@@ -1,9 +1,12 @@
 ---
 layout: post
-title: Limiting Resources for benchmarking
+title: Limiting Resources for Benchmarking
 tags: [benchmark, mlbench]
 ---
 
+The resources can be limited here. 
+
+The documentation can be seen [here](https://mlbench.readthedocs.io/en/develop/installation.html#helm-chart-values).
 
 ---
 ## Example `n1-standard-4`
@@ -41,11 +44,7 @@ So the amount of resources available is limited to the master node. In the previ
 
 ---
 ## Bandwidth
-TBD
-
----
-## Memory
-TBD
+The bandwidth is limited by the neighborhood of the number of.
 
 ---
 ## Accelerator

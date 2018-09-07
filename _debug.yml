@@ -2,3 +2,5 @@ name: MySite [DEBUG MODE]
 debug: true
 url: http://127.0.0.1:4000
 baseurl: '/'
+# Display post whose date is in the future
+future: true

@@ -1,11 +1,14 @@
 ---
 layout: post
-title: MLBench [1] -- Scaling up nodes (DRAFT)
+title: Scaling Up Nodes
 tags: [benchmark, mlbench, scaling]
 ---
 
 In this post, we show benchmark results on a standard deep learning task (`CIFAR-10`), for distributed training using the standard SGD algorithm on a public cloud, scaling 2,4,8,16,32,64 nodes.
 
+**Table of Contents**
+* TOC
+{:toc}
 
 ## Benchmark Task
 Distributed SGD for image classification on the CIFAR-10 dataset.
@@ -25,15 +28,52 @@ Standard mini-batch distributed Stochastic Gradient Descent (SGD)
 
 - TODO: describe basic algo first, details later
 
+### Learning rate
+There are 3 aspects to consider: `scaling`, `warmup`, `scheduling`
+
+#### Scaling learning rates by number of machines
+We use `k` for the number of machines and `b` for minibatch size per worker. 
+
+The `Linear Scaling Rule` in [^goyal2017accurate] states:
+>Linear Scaling Rule: When the minibatch size is multiplied by `k`, multiply the learning rate by `k`.
+
+In each iteration, `k*b` samples are trained. If no scaling is used, then 
+```python
+lr = eta * b
+```
+where `eta` is learning rate per sample. If we use `Linear Scaling Rule`, then
+```python
+lr = eta * b * k
+```
+
+In [^fnkaiming15deep] they use learning rate `0.1=k*b*eta=2*128*eta=256*eta` for 2 workers with batch size of 128. So here we choose `eta=0.1/256` 
+
+#### Warmup to scaled learning rates
+
+In [^goyal2017accurate] they use a `warmup` strategy which
+>using lower learning rates at the start of training to overcome early optimization difficulties.
+
+In this experiment we start from a learning rate of `eta * b` and linearly increase it to `eta * b * k` with in `5` epochs.
+
+#### Scheduling
+We reduce the learning rate by `0.1` at 82-th, 109-th epoch for all workers.
+This is similar to [^fnkaiming15deep] which reduces at 32k-th, 48k-th iterations.
+
+### Dataset
+
+The datasets are partitioned by nodes. Each worker only has access to part of the data.
+
+### Training Algorithm Summary
+
 |key | value |
 |:----:|:----:|
 |minibatch size per worker (b)| 32 |
 |number of workers (k)| 2, 4, 8, 16, 32, 64 |
-|learning rate per sample| 0.1 / 256|
-|scaled learning rate | k * b * (learning rate per sample) |
+|learning rate per sample (eta)| 0.1 / 256|
+|scaled learning rate | k * b * eta |
 |train epochs | 164 |
 |learning rate schedule | Starting from reference learning rate and reduce by 1/10 at the 82-th, 109-th epoch [^fnkaiming15deep].|
-|warmup| warmup lr for the first 5 epochs and starts with 0|
+|warmup| warmup lr for the first 5 epochs and starts with `eta * b`|
 |momentum | 0.9|
 |nesterov | True|
 
@@ -55,15 +95,11 @@ The definitions helm chart values can be found [here](https://mlbench.readthedoc
 
 |key|value|
 |:---:|:---:|
-|limits.cpu| 1000m|
+|limits.cpu| 2500m|
 |limits.maximumWorkers| 1|
-|limits.bandwidth| 10000|
+|limits.bandwidth| about 7.5Gbip/s|
 
 ### Detailed Experiment Configurations
-
-**Linear scaling rule**
-
-The `reference learning rate` in the previous table comes from *Linear Scaling Rule* [^goyal2017accurate]. In [^fnkaiming15deep] they use learning rate 0.1 for k * b=2 * 128 = 256, so using the `reference learning rate` above can recover their settings.
 
 **Version of source code**
 commit 
