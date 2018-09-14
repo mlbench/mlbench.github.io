@@ -39,14 +39,14 @@ Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
     </ul>
 
     <h2>Features</h2>
-
+    
     <ul>
-        <li>For reproducibility and simplicity, we currently focus on standard <strong>supervised ML</strong>, namely classification and regression solvers.</li>
-        <li>We provide <strong>reference implementations</strong>for each algorithm, to make it easy to port to a new framework.</li>
-        <li>Our goal is to benchmark all/most currently relevant <strong>distributed execution frameworks</strong>. We welcome contributions of new frameworks in the benchmark suite</li>
-        <li>We provide <strong>precisely defined tasks</strong> and datasets to have a fair and precise comparison of all algorithms and frameworks.</li>
-        <li>Independently of all solver implementations, we provide universal <strong>evaluation code</strong> allowing to compare the result metrics of different solvers and frameworks.</li>
-        <li>Our benchmark code is easy to run on the <strong>public cloud</strong>.</li>
+        <li> For reproducibility and simplicity, we currently focus on standard <strong>supervised ML</strong>, including standard deep learning tasks as well as classic linear ML models.</li>
+        <li> We provide <strong>reference implementations</strong> for each algorithm and task, to make it easy to port to a new framework.</li>
+        <li> Our goal is to benchmark all/most currently relevant <strong>distributed execution frameworks. We welcome contributions of new frameworks in the benchmark suite.</li>
+        <li> We provide <strong>precisely defined tasks</strong> and datasets to have a fair and precise comparison of all algorithms, frameworks and hardware.</li>
+        <li> Independently of all solver implementations, we provide universal <strong>evaluation code</strong> allowing to compare the result metrics of different solvers and frameworks.</li>
+        <li> Our benchmark code is easy to run on <strong>public clouds</strong>.</li>
     </ul>
     
 </p>
