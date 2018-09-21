@@ -110,7 +110,15 @@ Scripts to create/scale/delete cluster.
 {% gist 23361aea5fe252570496acc7da4fb599 %}
 
 ## Results
-* Time to Top-1 Validation Error
+* Epochs to Top-1 Validation Accuracy
+<a href="{{ site.baseurl }}public/images/scaling-prec1.png" data-lightbox="Run" data-title="Validation Accuracy @ 1">
+  <img src="{{ site.baseurl }}public/images/scaling-prec1.png" alt="Validation Accuracy @ 1" style="max-width:80%;"/>
+</a>
+* Time to Top-1 Validation Accuracy
+<a href="{{ site.baseurl }}public/images/scaling-time-prec1.png" data-lightbox="Run" data-title="Validation Accuracy @ 1">
+  <img src="{{ site.baseurl }}public/images/scaling-time-prec1.png" alt="Validation Accuracy @ 1" style="max-width:80%;"/>
+</a>
+
 * Time to Train/Validation Loss
 
 TODO: depending number of nodes
