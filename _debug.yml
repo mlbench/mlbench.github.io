@@ -1,6 +1,29 @@
-name: MySite [DEBUG MODE]
-debug: true
+# Dependencies
+highlighter:      rouge
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            'MLBench '
+tagline:          'Distributed Machine Learning Benchmark'
+description:      'A public and reproducible collection of reference implementations and benchmark suite for <u>distributed machine learning</u> algorithms, frameworks and systems.'
 url: http://127.0.0.1:4000
-baseurl: '/'
-# Display post whose date is in the future
+base_url: /
+
+debug: true
 future: true
+
+paginate:         5
+paginate_path:    "/blog/page:num/"
+
+# Custom vars
+version:          2.1.0
+
+github:
+  repo:           https://github.com/mlbench/mlbench
+
+markdown: kramdown
+
+kramdown:
+  toc_levels: 1..2
