@@ -174,7 +174,7 @@ Create a new Run:
 Enter the URL of the newly uploaded Docker image (The host can be left out if you use Docker Hub). Then enter the command to execute on each worker:
 
 ```shell
-/conda/bin/python /codes/train_dist.py --hosts {hosts} --rank {rank} --run_id = {run_id}
+/conda/bin/python /codes/train_dist.py --hosts {hosts} --rank {rank} --run_id {run_id}
 ```
 
 The values in brackets will be substituted by MLBench with the correct values and passed to our script.
