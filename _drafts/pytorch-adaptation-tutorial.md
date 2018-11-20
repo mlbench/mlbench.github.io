@@ -56,7 +56,7 @@ import argparse
 
 to the top of the file.
 
-We also need to change the ``init_processes`` method to reflect our previous changes:
+We also need to change the ``init_processes`` method to reflect our previous changes, along with setting the ``WORLD_SIZE`` and ``RANK`` environment variables:
 
 {% highlight python linenos %}
 def init_processes(rank, run_id, hosts, backend='gloo'):
@@ -65,11 +65,13 @@ def init_processes(rank, run_id, hosts, backend='gloo'):
     os.environ['MASTER_ADDR'] = hosts[0] # first worker is the master worker
     os.environ['MASTER_PORT'] = '29500'
     world_size = len(hosts)
+    os.environ['WORLD_SIZE'] = str(world_size)
+    os.environ['RANK'] = str(rank)
     dist.init_process_group(backend, rank=rank, world_size=len(world_size))
     run(rank, world_size, run_id)
 {% endhighlight %}
 
-We also need to change the signature of the ``run`` method to add the ``run_id`` parameter. The ``run_id`` is a unique identifier automatically assigned by MLBench to identify an individual run and all its data and performance metrics.
+Next, we need to change the signature of the ``run`` method to add the ``run_id`` parameter. The ``run_id`` is a unique identifier automatically assigned by MLBench to identify an individual run and all its data and performance metrics.
 
 {% highlight python %}
 def run(rank, size, run_id):
@@ -128,6 +130,8 @@ Make sure to change ``default`` on line 12 to the namespace MLBench is running u
 
 That's it. Now the training will report the loss of each worker back to the Dashboard and show it in a nice Graph.
 
+The full code (with some additional improvements) is in our [Github Repo](https://github.com/mlbench/mlbench-benchmarks/blob/master/examples/mlbench-pytorch-tutorial/)
+
 ## Creating a Docker Image for Kubernetes
 
 To actually run our code, we need to wrap it in a Docker Image. We could create one from scratch, but it's easier to use the PyTorch Base image provided by MLBench, which already includes everything you might need for executing a PyTorch model.
@@ -135,9 +139,9 @@ To actually run our code, we need to wrap it in a Docker Image. We could create 
 Create a new file called ``Dockerfile`` in the ``mlbench-pytorch-tutorial`` directory and add the following code:
 
 {% highlight docker linenos %}
-FROM mlbench-pytorch-base:latest
+FROM mlbench/mlbench-pytorch-base:latest
 
-RUN pip install mlbench-core
+RUN pip install --extra-index-url https://testpypi.python.org/pypi mlbench-core
 
 # The reference implementation and user defined implementations are placed here.
 # ADD ./requirements.txt /requirements.txt
@@ -145,6 +149,8 @@ RUN pip install mlbench-core
 
 RUN mkdir /codes
 ADD ./train_dist.py /codes/train_dist.py
+
+EXPOSE 29500
 
 ENV PYTHONPATH /codes
 {% endhighlight %}
@@ -188,4 +194,8 @@ We also need to set that the command should be executed on all nodes instead of 
 Now we're all set to start our experiment. Hit ``Add Run`` and that's it. You just ran a custom model on MLBench.
 
 You should see a graph of the training loss of each worker, along with the combined ``stdout`` and ``stderr`` of all workers.
+
+<a href="{{ site.baseurl }}public/images/pytorch-tutorial-result.png" data-lightbox="Pytorch_Tutorial_Result" data-title="Result of the Tutorial">
+  <img src="{{ site.baseurl }}public/images/pytorch-tutorial-result.png" alt="Result of the Tutorial" style="max-width:80%;"/>
+</a>
 
