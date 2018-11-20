@@ -141,7 +141,7 @@ Create a new file called ``Dockerfile`` in the ``mlbench-pytorch-tutorial`` dire
 {% highlight docker linenos %}
 FROM mlbench/mlbench-pytorch-base:latest
 
-RUN pip install --extra-index-url https://testpypi.python.org/pypi mlbench-core
+RUN pip install mlbench-core==1.0.0
 
 # The reference implementation and user defined implementations are placed here.
 # ADD ./requirements.txt /requirements.txt
