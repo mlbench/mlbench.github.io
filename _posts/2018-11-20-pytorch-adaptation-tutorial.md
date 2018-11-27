@@ -1,14 +1,15 @@
 ---
 layout: post
-title: "Tutorial: Adapting existing PyTorch code to MLBench"
+title: "Tutorial: Adapting existing PyTorch Code to MLBench"
 author: r_grubenmann
 published: true
 tags: [tutorial,pytorch,guide]
 excerpt_separator: <!--more-->
 ---
-In this tutorial, we will go through the process of adapting existing distributed PyTorch code to work with the MLBench framework.
+In this tutorial, we will go through the process of adapting existing distributed PyTorch code to work with the MLBench framework. This allows you to run your models in the MLBench environment and easily compare them
+with our reference implementations as baselines to see how well your code performs.
 
-MLBench is designed to easily be used with third-party models, allowing for quick and fair comparisons with our standard benchmarks, saving all of the hassle that's needed to implement your own baselines for comparison.
+MLBench is designed to easily be used with third-party models, allowing for quick and fair comparisons and saving all of the hassle that's needed to implement your own baselines for comparison.
 
 <!--more-->
 
