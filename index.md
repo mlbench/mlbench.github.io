@@ -33,13 +33,18 @@ Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
 <h2>Resources and Community:</h2>
 
     <ul>
-        <li>Github: <a href="https://github.com/mlbench/">github.com/mlbench</a>.</li>
-        <li>Documentation: <a href="https://mlbench.readthedocs.io">mlbench.readthedocs.io</a>.</li>
-        <li>Mailing list: <a href="https://groups.google.com/d/forum/mlbench">groups.google.com/d/forum/mlbench</a>.</li>
+        <li>Github: <a href="https://github.com/mlbench/">github.com/mlbench</a></li>
+        <li>Documentation: <a href="https://mlbench.readthedocs.io">mlbench.readthedocs.io</a></li>
+        <li>Mailing list: <a href="https://groups.google.com/d/forum/mlbench">groups.google.com/d/forum/mlbench</a></li>
+        <li>
+            Slack channel:
+            <a href="https://join.slack.com/t/mlbench/shared_invite/enQtNTMzMjkwNDA4MTAyLWM2NTQ4OGNjMjFmZDdhMGQ2YzZkYmUyNzMxN2QxZjc2MmQyNjNiNjM3YWFlYzAwZjQ0Yzc0MTc3YWY5Zjg1ZjU">join.slack.com/t/mlbench/shared_invite/enQtNTMzMjkwNDA4MTAyLWM2NTQ4OGNjMjFmZDdhMGQ2YzZkYmUyNzMxN2QxZjc2MmQyNjNiNjM3YWFlYzAwZjQ0Yzc0MTc3YWY5Zjg1ZjU
+            </a>
+        </li>
     </ul>
 
     <h2>Features</h2>
-    
+
     <ul>
         <li> For reproducibility and simplicity, we currently focus on standard <strong>supervised ML</strong>, including standard deep learning tasks as well as classic linear ML models.</li>
         <li> We provide <strong>reference implementations</strong> for each algorithm and task, to make it easy to port to a new framework.</li>
@@ -48,6 +53,6 @@ Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
         <li> Independently of all solver implementations, we provide universal <strong>evaluation code</strong> allowing to compare the result metrics of different solvers and frameworks.</li>
         <li> Our benchmark code is easy to run on <strong>public clouds</strong>.</li>
     </ul>
-    
+
 </p>
 

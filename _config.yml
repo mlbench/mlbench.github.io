@@ -18,9 +18,9 @@ paginate_path:    "/blog/page:num/"
 version:          2.1.0
 
 github:
-  repo:           https://github.com/mlbench/mlbench
+  repo:           https://github.com/mlbench/mlbench-docs
 
 markdown: kramdown
 
-kramdown: 
-  toc_levels: 1..2 
+kramdown:
+  toc_levels: 1..2
