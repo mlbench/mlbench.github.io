@@ -14,7 +14,7 @@ MLBench is a framework for distributed machine learning. Its purpose is to impro
 
 <!--more-->
 
-MLBench is public, open source and vendor independent, and has two main goals: 
+MLBench is public, open source and vendor independent, and has two main goals:
 
 1. to be an easy-to-use and fair benchmarking suite for algorithms as well as for systems (software frameworks and hardware).
 2. to provide re-usable and reliable reference implementations of distributed ML algorithms.
@@ -37,7 +37,7 @@ MLBench is based on [Kubernetes](https://kubernetes.io/) to ease deployment in a
 
 Our project is open, vendor independent and backed by academic standards, and we highly value contributions from the community
 
-- [Github](https://github.com/mlbench/)
+- [Github](https://github.com/mlbench/mlbench-docs)
 
 - [Mailing list](https://groups.google.com/d/forum/mlbench)
 

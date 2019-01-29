@@ -4,7 +4,9 @@ title: Home
 ---
 <h1>mlbench: Distributed Machine Learning Benchmark</h1>
 
-<a href="https://travis-ci.com/mlbench/mlbench"><img src="https://travis-ci.com/mlbench/mlbench.svg?branch=develop"></a>
+<a href="https://travis-ci.com/mlbench/mlbench-dashboard"><img src="https://travis-ci.com/mlbench/mlbench-dashboard.svg?branch=develop"></a>
+<a href="https://travis-ci.com/mlbench/mlbench-core"><img src="https://travis-ci.com/mlbench/mlbench-core.svg?branch=develop"></a>
+<a href="https://travis-ci.com/mlbench/mlbench-benchmarks"><img src="https://travis-ci.com/mlbench/mlbench-benchmarks.svg?branch=develop"></a>
 <a href="https://mlbench.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/mlbench/badge/?version=latest" alt="Documentation Status"></a>
 
 
