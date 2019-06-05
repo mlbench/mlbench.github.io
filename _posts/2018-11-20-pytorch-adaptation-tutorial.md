@@ -84,10 +84,14 @@ At this point, the script could technically already run in MLBench. But so far i
 The PyTorch script reports loss to ``stdout``, but we can easily report the loss to MLBench as well. First we need to import the relevant MLBench functionality by adding the following line to the imports at the top of the file:
 
 {% highlight python %}
-from mlbench_core.api import ApiClient
+from mlbench_core.utils import Tracker
+from mlbench_core.evaluation.goals import task1_time_to_accuracy_goal
+from mlbench_core.evaluation.pytorch.metrics import TopKAccuracy
+from mlbench_core.controlflow.pytorch import validation_round
 {% endhighlight %}
 
-Then we can simply create an api client object and use it to report the loss. We instantiate the client as shown on lines 10 - 13 in this snippet and post the loss as shown on lines 32 - 35:
+Then we can simply create a ``Tracker`` object and use it to report the loss and add metrics (``TokKAccuracy``) to track. We add code to record the timing of different steps with ``tracker.record_batch_step()``.
+We have to tell the tracker that we're in the training loop ba calling ``tracker.train()`` and that the epoch is done by calling ``tracker.epoch_end()``. The loss is recorded with ``tracker.record_loss()``.
 
 {% highlight python linenos %}
 def run(rank, size, run_id):
@@ -95,41 +99,131 @@ def run(rank, size, run_id):
     torch.manual_seed(1234)
     train_set, bsz = partition_dataset()
     model = Net()
-    model = model
-    # model = model.cuda(rank)
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
+    metrics = [
+        TopKAccuracy(topk=1),
+        TopKAccuracy(topk=5)
+    ]
+    loss_func = nn.NLLLoss()
 
-    api_client = ApiClient(
-        in_cluster=True,
-        k8s_namespace='default',
-        label_selector='component=master,app=mlbench')
+    tracker = Tracker(metrics, run_id, rank)
 
     num_batches = ceil(len(train_set.dataset) / float(bsz))
+
+    tracker.start()
+
     for epoch in range(10):
+        tracker.train()
+
         epoch_loss = 0.0
         for data, target in train_set:
-            data, target = Variable(data), Variable(target)
-            # data, target = Variable(data.cuda(rank)), Variable(target.cuda(rank))
+            tracker.batch_start()
+
             optimizer.zero_grad()
             output = model(data)
-            loss = F.nll_loss(output, target)
-            epoch_loss += loss.data[0]
+
+            tracker.record_batch_step('forward')
+
+            loss = loss_func(output, target)
+            epoch_loss += loss.data.item()
+
+            tracker.record_batch_step('loss')
+
             loss.backward()
+
+            tracker.record_batch_step('backward')
+
             average_gradients(model)
             optimizer.step()
-        print('Rank ',
-              dist.get_rank(), ', epoch ', epoch, ': ',
-              epoch_loss / num_batches)
 
-        api_client.post_metric(
-            run_id,
-            "Rank {} loss".format(rank),
-            epoch_loss / num_batches)
+            tracker.batch_end()
+
+        tracker.record_loss(epoch_loss, num_batches, log_to_api=True)
+
+        logging.debug('Rank %s, epoch %s: %s',
+                      dist.get_rank(), epoch,
+                      epoch_loss / num_batches)
+
+        tracker.epoch_end()
+
+        if tracker.goal_reached:
+            logging.debug("Goal Reached!")
+            return
 {% endhighlight %}
 
-Make sure to change ``default`` on line 12 to the namespace MLBench is running under in Kubernetes.
 
 That's it. Now the training will report the loss of each worker back to the Dashboard and show it in a nice Graph.
+
+For the official tasks, we also need to report validation stats to the tracker and use the offical validation code. Rename the current ``partition_dataset()`` method to ``partition_dataset_train``
+and add a new partition method to load the validation set:
+
+{% highlight python linenos %}
+def partition_dataset_val():
+    """ Partitioning MNIST validation set"""
+    dataset = datasets.MNIST(
+        './data',
+        train=False,
+        download=True,
+        transform=transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize((0.1307, ), (0.3081, ))
+        ]))
+    size = dist.get_world_size()
+    bsz = int(128 / float(size))
+    partition_sizes = [1.0 / size for _ in range(size)]
+    partition = DataPartitioner(dataset, partition_sizes)
+    partition = partition.use(dist.get_rank())
+    val_set = torch.utils.data.DataLoader(
+        partition, batch_size=bsz, shuffle=True)
+    return val_set, bsz
+{% endhighlight %}
+
+Then load the validation set and add the goal for the official task (The Task 1a goal is used for illustration purposes in thsi example):
+
+{% highlight python linenos %}
+def run(rank, size, run_id):
+    """ Distributed Synchronous SGD Example """
+    torch.manual_seed(1234)
+    train_set, bsz = partition_dataset_train()
+    val_set, bsz_val = partition_dataset_val()
+    model = Net()
+    optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
+    metrics = [
+        TopKAccuracy(topk=1),
+        TopKAccuracy(topk=5)
+    ]
+    loss_func = nn.NLLLoss()
+
+    goal = task1_time_to_accuracy_goal
+
+    tracker = Tracker(metrics, run_id, rank, goal=goal)
+
+    num_batches = ceil(len(train_set.dataset) / float(bsz))
+    num_batches_val = ceil(len(val_set.dataset) / float(bsz_val))
+
+    tracker.start()
+{% endhighlight %}
+
+Now all that is needed is to add the validation loop code (``validation_round()``) to run validation in the ``run()`` function. We also check if the goal is reached and stop training if it is.
+``validation_round()`` evaluates the metrics on the validation set and reports the results to the Dashboard.
+
+{% highlight python linenos %}
+    tracker.record_loss(epoch_loss, num_batches, log_to_api=True)
+
+    logging.debug('Rank %s, epoch %s: %s',
+                  dist.get_rank(), epoch,
+                  epoch_loss / num_batches)
+
+    validation_round(val_set, model, loss_func, metrics, run_id, rank,
+                      'fp32', transform_target_type=None, use_cuda=False,
+                      max_batch_per_epoch=num_batches_val, tracker=tracker)
+
+    tracker.epoch_end()
+
+    if tracker.goal_reached:
+        logging.debug("Goal Reached!")
+        return
+{% endhighlight %}
 
 The full code (with some additional improvements) is in our [Github Repo](https://github.com/mlbench/mlbench-benchmarks/blob/master/examples/mlbench-pytorch-tutorial/)
 
