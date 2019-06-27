@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tutorial: Adapting existing PyTorch Code to MLBench"
+title: "Tutorial: Adding an existing PyTorch model to an MLBench task"
 author: r_grubenmann
 published: true
 tags: [tutorial,pytorch,guide]

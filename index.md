@@ -29,7 +29,7 @@ MLBench is public, open source and vendor independent, and has two main goals:
 
 <p>
  For more details on the benchmarking tasks, see <a href="https://mlbench.readthedocs.io/en/latest/benchmark-tasks.html"> Benchmark Tasks</a> and <a href="https://mlbench.readthedocs.io/en/latest/benchmark-tasks.html#benchmark-task-results">Benchmark Results</a>
- </p>
+</p>
 
 <p>
 Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
