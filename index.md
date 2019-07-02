@@ -60,5 +60,13 @@ Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
         <li> Our benchmark code is easy to run on <strong>public clouds</strong>.</li>
     </ul>
 
+    <h2>Sponsors</h2>
+
+    <ul style="list-style-type:none;">
+        <li><img src="{{ site.baseurl }}public/images/Logo_EPFL.png" alt="EPFL" style="max-width:100px;"/></li>
+        <li><img src="{{ site.baseurl }}public/images/pwc_logo.png" alt="PwC" style="max-width:100px;"/></li>
+        <li><img src="{{ site.baseurl }}public/images/google.jpg" alt="Google" style="max-width:100px"/></li>
+    </ul>
+
 </p>
 
