@@ -63,7 +63,7 @@ Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
     <h2>Sponsors</h2>
 
     <ul style="list-style-type:none;">
-        <li><img src="{{ site.baseurl }}public/images/Logo_EPFL.png" alt="EPFL" style="max-width:100px;"/></li>
+        <li><img src="{{ site.baseurl }}public/images/Logo_EPFL.png" alt="EPFL" style="max-width:100px;border-radius:0px;"/></li>
         <li><img src="{{ site.baseurl }}public/images/pwc_logo.png" alt="PwC" style="max-width:100px;"/></li>
         <li><img src="{{ site.baseurl }}public/images/google.jpg" alt="Google" style="max-width:100px"/></li>
     </ul>
