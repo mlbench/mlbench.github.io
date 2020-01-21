@@ -2,7 +2,7 @@
 layout: post
 title: "Tutorial: Using the MLBench Commandline Interface"
 author: r_grubenmann
-published: false
+published: true
 tags: [tutorial,guide]
 excerpt_separator: <!--more-->
 ---
@@ -55,7 +55,32 @@ Run started with name my-run-2
 
 You will be prompted to select the benchmark image you want to run (or to specify a custom image). Afterwards, a new benchmark run will be started in the cluster with 2 workers.
 
-To see the status of this run, execute:
+You can also start multiple runs at the same time, which will be scheduled as nodes become available:
+
+```shell
+$ mlbench run my-run 2 4 8 16
+
+Benchmark:
+
+[0] PyTorch Cifar-10 ResNet-20 Open-MPI
+[1] PyTorch Cifar-10 ResNet-20 Open-MPI (SCaling LR)
+[2] PyTorch Linear Logistic Regrssion Open-MPI
+[3] Tensorflow Cifar-10 ResNet-20 Open-MPI
+[4] Custom Image
+
+Selection [0]: 1
+
+[...]
+
+Run started with name my-run-2
+Run started with name my-run-4
+Run started with name my-run-8
+Run started with name my-run-16
+```
+
+which would start runs with 2, 4, 8 and 16 workers, respectively.
+
+To see the status of a run, execute:
 
 ```shell
 $ mlbench status my-run-2
@@ -75,7 +100,7 @@ To download the results of a current or finished run, use:
 $ mlbench download my-run-2
 ```
 
-which will download all the metrics of the run as a zip file. This file also contains the official benchmark result once the run finishes.
+which will download all the metrics of the run as a zip file. This file also contains the official benchmark result once the run finishes, in the form of the ``official_result.txt``.
 
 You can also access all the information of the run in the dashboard. To get the dashboard URL, simply run:
 
