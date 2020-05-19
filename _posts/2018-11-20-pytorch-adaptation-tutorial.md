@@ -13,7 +13,7 @@ MLBench is designed to easily be used with third-party models, allowing for quic
 
 <!--more-->
 
-We will adapt the code from the official [PyTorch distributed tutorial](https://pytorch.org/tutorials/intermediate/dist_tuto.html) to run in MLBench. If you're unfamiliar with that tutorial, it might be worth giving it a quick look so you know what' we're working with.
+We will adapt the code from the official [PyTorch distributed tutorial](https://pytorch.org/tutorials/intermediate/dist_tuto.html) to run in MLBench. If you're unfamiliar with that tutorial, it might be worth giving it a quick look so you know what we're working with.
 
 
 ## Adapting the Code
@@ -90,8 +90,8 @@ from mlbench_core.evaluation.pytorch.metrics import TopKAccuracy
 from mlbench_core.controlflow.pytorch import validation_round
 {% endhighlight %}
 
-Then we can simply create a ``Tracker`` object and use it to report the loss and add metrics (``TokKAccuracy``) to track. We add code to record the timing of different steps with ``tracker.record_batch_step()``.
-We have to tell the tracker that we're in the training loop ba calling ``tracker.train()`` and that the epoch is done by calling ``tracker.epoch_end()``. The loss is recorded with ``tracker.record_loss()``.
+Then we can simply create a ``Tracker`` object and use it to report the loss and add metrics (``TopKAccuracy``) to track. We add code to record the timing of different steps with ``tracker.record_batch_step()``.
+We have to tell the tracker that we're in the training loop by calling ``tracker.train()`` and that the epoch is done by calling ``tracker.epoch_end()``. The loss is recorded with ``tracker.record_loss()``.
 
 {% highlight python linenos %}
 def run(rank, size, run_id):
@@ -236,7 +236,7 @@ Create a new file called ``Dockerfile`` in the ``mlbench-pytorch-tutorial`` dire
 {% highlight docker linenos %}
 FROM mlbench/mlbench-pytorch-base:latest
 
-RUN pip install mlbench-core==1.0.0
+RUN pip install mlbench-core
 
 # The reference implementation and user defined implementations are placed here.
 # ADD ./requirements.txt /requirements.txt
@@ -280,7 +280,8 @@ Enter the URL of the newly uploaded Docker image (The host can be left out if yo
 
 The values in brackets will be substituted by MLBench with the correct values and passed to our script.
 
-We also need to set that the command should be executed on all nodes instead of just the Rank 0 Worker.
+We also need to choose which backend we want to run on (in our case, MPI) and 
+set the number of workers on which we want to execute our run.
 
 <a href="{{ site.baseurl }}public/images/Pytorch_New_Run.png" data-lightbox="Pytorch_New_Run" data-title="Create New PyTorch Run">
   <img src="{{ site.baseurl }}public/images/Pytorch_New_Run.png" alt="Create New PyTorch Run" style="max-width:80%;"/>
