@@ -116,3 +116,14 @@ Don't forget to delete the cluster once you're done!
 $ mlbench delete-cluster gcloud my-cluster-3
 [...]
 ```
+
+**NOTE**: if you created a cluster in a non-default zone using the `-z` flag, 
+you also need to delete it by passing the same flag and argument to `mlbench delete-cluster`.
+
+```shell
+# create cluster in europe-west2-b (non-default)
+$ mlbench create-cluster gcloud -z europe-west2-b 3 my-cluster
+
+# delete cluster
+$ mlbench delete-cluster gcloud -z europe-west2-b my-cluster-3
+```
