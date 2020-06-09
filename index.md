@@ -44,7 +44,7 @@ Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
         <li>Mailing list: <a href="https://groups.google.com/d/forum/mlbench">groups.google.com/d/forum/mlbench</a></li>
         <li>
             Slack channel:
-            <a href="https://join.slack.com/t/mlbench/shared_invite/enQtNTMzMjkwNDA4MTAyLWM2NTQ4OGNjMjFmZDdhMGQ2YzZkYmUyNzMxN2QxZjc2MmQyNjNiNjM3YWFlYzAwZjQ0Yzc0MTc3YWY5Zjg1ZjU">join.slack.com/t/mlbench/shared_invite/enQtNTMzMjkwNDA4MTAyLWM2NTQ4OGNjMjFmZDdhMGQ2YzZkYmUyNzMxN2QxZjc2MmQyNjNiNjM3YWFlYzAwZjQ0Yzc0MTc3YWY5Zjg1ZjU
+            <a href="https://join.slack.com/t/mlbench/shared_invite/zt-6sznc8fa-_diIdB7~XtLYmCLaQuOA9Q">join.slack.com/t/mlbench/shared_invite/zt-6sznc8fa-_diIdB7~XtLYmCLaQuOA9Q
             </a>
         </li>
     </ul>
