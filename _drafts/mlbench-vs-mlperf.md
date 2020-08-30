@@ -30,25 +30,120 @@ MLPerf restricts the set of hyperparameters that can be tuned. It also allows us
 
 ## Benchmark Suites
 
-### MLBench
-
-|   Task  	|           Benchmark          	|       Dataset      	|   Quality Target   	| Reference Implementation Model 	|      Frameworks     	|
-|:-------:	|:----------------------------:	|:------------------:	|:------------------:	|:------------------------------:	|:-------------------:	|
-| Task 1a 	|     Image classification     	|   CIFAR10 (32x32)  	| 80% Top-1 Accuracy 	|            ResNet-20           	| PyTorch, Tensorflow 	|
-| Task 1b 	|     Image classification     	| ImageNet (224x224) 	|        TODO        	|              TODO              	|         TODO        	|
-| Task 3a 	|      Language Modelling      	|      Wikitext2     	|  Perplexity <= 50  	|             RNN-LM             	|       PyTorch       	|
-| Task 4a 	|    Translation (recurrent)   	|     WMT16 EN-DE    	|      24.0 BLEU     	|              GNMT              	|       PyTorch       	|
-| Task 4b 	| Translation (non-recurrent)  	|     WMT17 EN-DE    	|      25.0 BLEU     	|           Transformer          	|       PyTorch       	|
-
-### MLPerf
-
-|            Benchmark            	|         Dataset         	|            Quality Target           	| Reference Implementation Model 	|      Frameworks     	|
-|:-------------------------------:	|:-----------------------:	|:-----------------------------------:	|:------------------------------:	|:-------------------:	|
-|       Image classification      	|    ImageNet (224x224)   	|         75.9% Top-1 Accuracy        	|         Resnet-50 v1.5         	|  MXNet, Tensorflow  	|
-| Object detection (light weight) 	|        COCO 2017        	|               23% mAP               	|          SSD-ResNet34          	| Tensorflow, PyTorch 	|
-| Object detection (heavy weight) 	|        COCO 2017        	| 0.377 Box min AP, 0.339 Mask min AP 	|           Mask R-CNN           	| Tensorflow, PyTorch 	|
-|     Translation (recurrent)     	|    WMT English-German   	|              24.0 BLEU              	|              GNMT              	| Tensorflow, PyTorch 	|
-|   Translation (non-recurrent)   	|    WMT English-German   	|              25.0 BLEU              	|           Transformer          	| Tensorflow, PyTorch 	|
-|          Recommendation         	| Undergoing modification 	|                                     	|                                	|                     	|
-|      Reinforcement learning     	|           N/A           	|        Pre-trained checkpoint       	|             Mini Go            	|      Tensorflow     	|
-
+<table>
+<thead>
+  <tr>
+    <th rowspan="2">Benchmark</th>
+    <th colspan="2">Dataset</th>
+    <th colspan="2">Quality Target</th>
+    <th colspan="2">Reference Implementation Model</th>
+    <th colspan="2">Frameworks</th>
+  </tr>
+  <tr>
+    <td>MLBench</td>
+    <td>MLPerf</td>
+    <td>MLBench</td>
+    <td>MLPerf</td>
+    <td>MLBench</td>
+    <td>MLPerf</td>
+    <td>MLBench</td>
+    <td>MLPerf</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Image classification</td>
+    <td>CIFAR10 (32x32)</td>
+    <td>/</td>
+    <td>80% Top-1 Accuracy</td>
+    <td>/</td>
+    <td>ResNet-20</td>
+    <td>/</td>
+    <td>PyTorch, Tensorflow</td>
+    <td>/</td>
+  </tr>
+  <tr>
+    <td>Image classification</td>
+    <td colspan="2">ImageNet (224x224)</td>
+    <td>TODO</td>
+    <td>75.9% Top-1 Accuracy</td>
+    <td>TODO</td>
+    <td>Resnet-50 v1.5</td>
+    <td>TODO</td>
+    <td>MXNet, Tensorflow</td>
+  </tr>
+  <tr>
+    <td>Object detection (light weight)</td>
+    <td>/</td>
+    <td>COCO 2017</td>
+    <td>/</td>
+    <td>23% mAP</td>
+    <td>/</td>
+    <td>SSD-ResNet34</td>
+    <td>/</td>
+    <td>Tensorflow, PyTorch</td>
+  </tr>
+  <tr>
+    <td>Object detection (heavy weight)</td>
+    <td>/</td>
+    <td>COCO 2017</td>
+    <td>/</td>
+    <td>0.377 Box min AP, 0.339 Mask min AP</td>
+    <td>/</td>
+    <td>Mask R-CNN</td>
+    <td>/</td>
+    <td>Tensorflow, PyTorch</td>
+  </tr>
+  <tr>
+    <td>Language Modelling</td>
+    <td>Wikitext2</td>
+    <td>/</td>
+    <td>Perplexity &lt;= 50</td>
+    <td>/</td>
+    <td>RNN-LM</td>
+    <td>/</td>
+    <td>PyTorch</td>
+    <td>/</td>
+  </tr>
+  <tr>
+    <td>Translation (recurrent)</td>
+    <td>WMT16 EN-DE</td>
+    <td>WMT English-German</td>
+    <td colspan="2">24.0 BLEU</td>
+    <td colspan="2">GNMT</td>
+    <td>PyTorch</td>
+    <td>Tensorflow, PyTorch</td>
+  </tr>
+  <tr>
+    <td>Translation (non-recurrent)</td>
+    <td>WMT17 EN-DE</td>
+    <td>WMT English-German</td>
+    <td colspan="2">25.0 BLEU</td>
+    <td colspan="2">Transformer</td>
+    <td>PyTorch</td>
+    <td>Tensorflow, PyTorch</td>
+  </tr>
+  <tr>
+    <td>Recommendation</td>
+    <td>/</td>
+    <td>Undergoing modification</td>
+    <td>/</td>
+    <td></td>
+    <td>/</td>
+    <td></td>
+    <td>/</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Reinforcement learning</td>
+    <td>/</td>
+    <td>N/A</td>
+    <td>/</td>
+    <td>Pre-trained checkpoint</td>
+    <td>/</td>
+    <td>Mini Go</td>
+    <td>/</td>
+    <td>Tensorflow</td>
+  </tr>
+</tbody>
+</table>
