@@ -2,12 +2,13 @@
 layout: default
 title: Home
 ---
-<h1>mlbench: Distributed Machine Learning Benchmark</h1>
+<h1>MLBench: Distributed Machine Learning Benchmark</h1>
 
-<a href="https://travis-ci.com/mlbench/mlbench-dashboard"><img src="https://travis-ci.com/mlbench/mlbench-dashboard.svg?branch=develop"></a>
-<a href="https://travis-ci.com/mlbench/mlbench-core"><img src="https://travis-ci.com/mlbench/mlbench-core.svg?branch=develop"></a>
-<a href="https://travis-ci.com/mlbench/mlbench-benchmarks"><img src="https://travis-ci.com/mlbench/mlbench-benchmarks.svg?branch=develop"></a>
-<a href="https://mlbench.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/mlbench/badge/?version=latest" alt="Documentation Status"></a>
+<hr>
+<a style="display: inline-block" href="https://travis-ci.com/mlbench/mlbench-dashboard"><img src="https://travis-ci.com/mlbench/mlbench-dashboard.svg?branch=develop"></a>
+<a style="display: inline-block" href="https://travis-ci.com/mlbench/mlbench-core"><img src="https://travis-ci.com/mlbench/mlbench-core.svg?branch=develop"></a>
+<a style="display: inline-block" href="https://travis-ci.com/mlbench/mlbench-benchmarks"><img src="https://travis-ci.com/mlbench/mlbench-benchmarks.svg?branch=develop"></a>
+<a style="display: inline-block" href="https://mlbench.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/mlbench/badge/?version=latest" alt="Documentation Status"></a>
 
 
 
@@ -35,39 +36,40 @@ MLBench is public, open source and vendor independent, and has two main goals:
 Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
 </p>
 
-<p>
+<hr>
 <h2>Resources and Community:</h2>
 
-    <ul>
-        <li>Github: <a href="https://github.com/mlbench/">github.com/mlbench</a></li>
-        <li>Documentation: <a href="https://mlbench.readthedocs.io">mlbench.readthedocs.io</a></li>
-        <li>Mailing list: <a href="https://groups.google.com/d/forum/mlbench">groups.google.com/d/forum/mlbench</a></li>
-        <li>
-            Slack channel:
-            <a href="https://join.slack.com/t/mlbench/shared_invite/zt-6sznc8fa-_diIdB7~XtLYmCLaQuOA9Q">join.slack.com/t/mlbench/shared_invite/zt-6sznc8fa-_diIdB7~XtLYmCLaQuOA9Q
-            </a>
-        </li>
-    </ul>
+<ul>
+    <li>Github: <a href="https://github.com/mlbench/">github.com/mlbench</a></li>
+    <li>Documentation: <a href="https://mlbench.readthedocs.io">mlbench.readthedocs.io</a></li>
+    <li>Mailing list: <a href="https://groups.google.com/d/forum/mlbench">groups.google.com/d/forum/mlbench</a></li>
+    <li>
+        Slack channel:
+        <a href="https://join.slack.com/t/mlbench/shared_invite/zt-6sznc8fa-_diIdB7~XtLYmCLaQuOA9Q">join.slack.com/t/mlbench/shared_invite/zt-6sznc8fa-_diIdB7~XtLYmCLaQuOA9Q
+        </a>
+    </li>
+</ul>
 
-    <h2>Features</h2>
+<hr>
+<h2>Features</h2>
 
-    <ul>
-        <li> For reproducibility and simplicity, we currently focus on standard <strong>supervised ML</strong>, including standard deep learning tasks as well as classic linear ML models.</li>
-        <li> We provide <strong>reference implementations</strong> for each algorithm and task, to make it easy to port to a new framework.</li>
-        <li> Our goal is to benchmark all/most currently relevant <strong>distributed execution frameworks</strong>. We welcome contributions of new frameworks in the benchmark suite.</li>
-        <li> We provide <strong>precisely defined tasks</strong> and datasets to have a fair and precise comparison of all algorithms, frameworks and hardware.</li>
-        <li> Independently of all solver implementations, we provide universal <strong>evaluation code</strong> allowing to compare the result metrics of different solvers and frameworks.</li>
-        <li> Our benchmark code is easy to run on <strong>public clouds</strong>.</li>
-    </ul>
+<ul>
+    <li> For reproducibility and simplicity, we currently focus on standard <strong>supervised ML</strong>, including standard deep learning tasks as well as classic linear ML models.</li>
+    <li> We provide <strong>reference implementations</strong> for each algorithm and task, to make it easy to port to a new framework.</li>
+    <li> Our goal is to benchmark all/most currently relevant <strong>distributed execution frameworks</strong>. We welcome contributions of new frameworks in the benchmark suite.</li>
+    <li> We provide <strong>precisely defined tasks</strong> and datasets to have a fair and precise comparison of all algorithms, frameworks and hardware.</li>
+    <li> Independently of all solver implementations, we provide universal <strong>evaluation code</strong> allowing to compare the result metrics of different solvers and frameworks.</li>
+    <li> Our benchmark code is easy to run on <strong>public clouds</strong>.</li>
+</ul>
 
-    <h2>Sponsors</h2>
+<hr>
+<h2>Sponsors</h2>
 
-    <ul style="list-style-type:none;">
-        <li><img src="{{ site.baseurl }}public/images/Logo_EPFL.png" alt="EPFL" style="max-width:200px;border-radius:0px;"/></li>
-        <li><img src="{{ site.baseurl }}public/images/pwc_logo.png" alt="PwC" style="max-width:200px;border-radius:0px;"/></li>
-        <li><img src="{{ site.baseurl }}public/images/google.png" alt="Google" style="max-width:200px;border-radius:0px;"/></li>
-        <li><img src="{{ site.baseurl }}public/images/Facebook-Wordmark-Gray.png" alt="Facebook" style="max-width:200px;border-radius:0px;"/></li>
-    </ul>
+<ul style="list-style-type:none;">
+    <li><img src="{{ site.baseurl }}public/images/Logo_EPFL.png" alt="EPFL" style="max-width:200px;border-radius:0px;"/></li>
+    <li><img src="{{ site.baseurl }}public/images/pwc_logo.png" alt="PwC" style="max-width:200px;border-radius:0px;"/></li>
+    <li><img src="{{ site.baseurl }}public/images/google.png" alt="Google" style="max-width:200px;border-radius:0px;"/></li>
+    <li><img src="{{ site.baseurl }}public/images/Facebook-Wordmark-Gray.png" alt="Facebook" style="max-width:200px;border-radius:0px;"/></li>
+</ul>
 
-</p>
 
