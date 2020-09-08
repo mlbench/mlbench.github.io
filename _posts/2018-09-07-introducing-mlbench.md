@@ -43,4 +43,4 @@ Our project is open, vendor independent and backed by academic standards, and we
 
 ### Getting Started
 
-Please refer to our [getting-started tutorial]({% post_url 2018-09-10-tutorial %}) on how to set up and start using MLBench.
+For installation and quickstart, please refer to the [documentation](https://mlbench.readthedocs.io/en/latest/installation.html#installation).
