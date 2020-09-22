@@ -2,11 +2,17 @@
 layout: post
 title: Comparison of MLBench and MLPerf
 author: m_milenkoski
+published: true
+tags: [mlperf, introduction]
+excerpt_separator: <!--more-->
 ---
 
 MLPerf is a broad benchmark suite for measuring the performance of machine learning (ML) software frameworks, ML hardware platforms and ML cloud platforms. 
 
 In this post, we will highlight the main differences between MLBench and MLPerf. 
+
+<!--more-->
+
 
 ## Key Advantages of MLBench
 
