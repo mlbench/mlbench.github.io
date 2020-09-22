@@ -9,7 +9,7 @@ title:            'MLBench '
 tagline:          'Distributed Machine Learning Benchmark'
 description:      'A public and reproducible collection of reference implementations and benchmark suite for <u>distributed machine learning</u> algorithms, frameworks and systems.'
 url: http://127.0.0.1:4000
-base_url: /
+baseurl: /
 
 debug: true
 future: true
