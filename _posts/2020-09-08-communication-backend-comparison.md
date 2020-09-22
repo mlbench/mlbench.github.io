@@ -7,12 +7,13 @@ tags: [performance, results]
 excerpt_separator: <!--more-->
 ---
 
-Distributed learning requires workers to collaborate by sharing learned information with their "colleagues". As MLBench
-supports both one and multiple processes per node, in addition to multi-node training, communication between workers is crucial
-and will heavily affect performance, notably for compute bound training algorithms.
+Distributed learning requires workers to collaborate by swiftly sharing learned information with their "colleagues".
+With the accelerating growth of model sizes in modern deep learning, this aspect gains even more importance.
 
-This Blog post addresses and analyzes the raw performance of different communication backends, used to transmit tensors and other
-information between the workers.
+MLBench supports both one and multiple processes per node, in addition to multi-node training. Communication between workers is crucial
+and will heavily affect performance, notably for communication bound training algorithms.
+
+This blog post addresses and analyzes the raw performance of different communication backends on commodity communication hardware, used to transmit large arrays or tensors.
 
 <!--more-->
 
@@ -66,8 +67,8 @@ There are 4 tensor type: `Float16` & `Float32` CPU or GPU tensors.
 
 ### CPU vs GPU tensors?
 
-Only MPI and GLOO support communication of CPU tensors, while NCCL requires the use of GPU acceleration. This is a great advantage, as CPU training is less costly
-and can be sped-up using distributed training.
+MPI and GLOO support both CPU and GPU tensor communication, while NCCL only supports communication of GPU tensors. This is a great advantage, as CPU training is less costly
+and can be sped up using distributed training.
 
 #### CPU
 In the graph below, we compare the speeds taken to perform an `all reduce` operation between 2, 4 and 8 workers, of `Float16` and `Float32` CPU tensors.
