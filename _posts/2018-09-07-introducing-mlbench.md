@@ -8,8 +8,8 @@ excerpt_separator: <!--more-->
 ---
 MLBench is a framework for distributed machine learning. Its purpose is to improve transparency, reproducibility, robustness, and to provide fair performance measures as well as reference implementations, helping adoption of distributed machine learning methods both in industry and in the academic community.
 
-<a href="{{ site.baseurl }}public/images/Dashboard_Index.png" data-lightbox="Dashboard_Index" data-title="The MLBench Dashboard">
-  <img src="{{ site.baseurl }}public/images/Dashboard_Index.png" alt="The MLBench Dashboard" style="max-width:80%;"/>
+<a href="{{ site.baseurl }}public/images/blog/2018-09-07-introducing-mlbench/Dashboard_Index.png" data-lightbox="Dashboard_Index" data-title="The MLBench Dashboard">
+  <img src="{{ site.baseurl }}public/images/blog/2018-09-07-introducing-mlbench/Dashboard_Index.png" alt="The MLBench Dashboard" style="max-width:80%;"/>
 </a>
 
 <!--more-->

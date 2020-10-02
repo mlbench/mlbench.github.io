@@ -66,10 +66,10 @@ Check out our <a href="https://mlbench.github.io/blog/">blog</a>!
 <h2>Sponsors</h2>
 
 <ul style="list-style-type:none;">
-    <li><img src="{{ site.baseurl }}public/images/Logo_EPFL.png" alt="EPFL" style="max-width:200px;border-radius:0px;"/></li>
-    <li><img src="{{ site.baseurl }}public/images/pwc_logo.png" alt="PwC" style="max-width:200px;border-radius:0px;"/></li>
-    <li><img src="{{ site.baseurl }}public/images/google.png" alt="Google" style="max-width:200px;border-radius:0px;"/></li>
-    <li><img src="{{ site.baseurl }}public/images/Facebook-Wordmark-Gray.png" alt="Facebook" style="max-width:200px;border-radius:0px;"/></li>
+    <li><img src="{{ site.baseurl }}public/images/assets/Logo_EPFL.png" alt="EPFL" style="max-width:200px;border-radius:0px;"/></li>
+    <li><img src="{{ site.baseurl }}public/images/assets/pwc_logo.png" alt="PwC" style="max-width:200px;border-radius:0px;"/></li>
+    <li><img src="{{ site.baseurl }}public/images/assets/google.png" alt="Google" style="max-width:200px;border-radius:0px;"/></li>
+    <li><img src="{{ site.baseurl }}public/images/assets/Facebook-Wordmark-Gray.png" alt="Facebook" style="max-width:200px;border-radius:0px;"/></li>
 </ul>
 
 
