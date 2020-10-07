@@ -7,7 +7,7 @@ tags: [performance, results]
 excerpt_separator: <!--more-->
 ---
 
-During the past years, Natural Language Processing (NLP) has gained a lot of interest in the Machine Learning community. 
+Natural Language Processing (NLP) has gained a lot of interest in the Machine Learning community. 
 This increasing attention towards the subject may come from the fascination of teaching machines to understand and assimilate human language, 
 and use them as tools to complement and facilitate our everyday lives. 
 
@@ -124,35 +124,58 @@ The goal for both models is determined by the Bilingual Evaluation Understudy Sc
 The models are trained on 1,2,4,8 and 16 workers, and all step times are precisely measured to obtain an accurate speed up quantification.
 Speedups are computed with respect to the 1 worker case, and are intended to illustrate the distributive capabilities of the task.
 
-### LSTM (GNMT implementation)
+### Overall Speedups
 
-The graph below shows the time speedups for the first model. The left graph shows the absolute speed ups with respect to one worker, and the right one omits
-communication times from the speed up. This allows us to better see the effect of communication.
+The graphs below show the time speedups for the LSTM model and Transformer model (respectively). 
 
 <a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedup.png" data-lightbox="task4a_speedups" data-title="Speedups for GNMT">
   ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedup.png)
   *GNMT Speedups*
 </a>
 
+<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedup.png" data-lightbox="task4b_speedups" data-title="Speedups for Transformer">
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedup.png)
+  *Transformer Speedups*
+</a>
+
+The left graph shows the absolute speed ups with respect to one worker, and the right one omits
+communication times from the speed up. This allows us to better see the effect of communication.
+
+
 A few interesting points:
 - Overall speedups follows a $$ log_{2}(n) $$, with `n = num_workers`, while compute are roughly linear.
-- Scaling the number of compute nodes gives nearly perfect scaling for this task
+- Scaling the number of compute nodes gives nearly perfect scaling for both tasks (right plot)
 - Using more powerful communication hardware (e.g. Tesla V100) will positively affect speedups.
 
-The next figure shows the total time spent in each step of training. As expected, we can see that compute steps take less time as we increase the number of nodes,
-while communication increasingly takes more and more time, following a logarithmic path. 
+As the distribution level increases, we can see that communication becomes more and more heavy, and attenuates speedups quite significantly.
 
-Time spent optimizing doesn’t seem to follow the same path, but increases are insignificant (~10 seconds), 
-and are due to additional compute steps (averaging tensors, computations related to Mixed precision) when using distribution.
+### Step times
+
+The next figures show the total time spent in each step of training. 
 
 <a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_times.png" data-lightbox="task4a_times" data-title="Step times for GNMT">
   ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_times.png)
   *Step times for GNMT*
 </a>
 
-Finally, the following figure shows the loss evolution (left), Ratio of communication to total time (center), and a price index (right), 
+<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_times.png" data-lightbox="task4b_times" data-title="Step times for Transformer">
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_times.png)
+  *Step times for Transformer*
+</a>
+
+As expected, we can see that compute steps take less time as we increase the number of nodes,
+while communication increasingly takes more and more time, following a logarithmic path. Interestingly, the Transformer model's communication times quickly reach a plateau
+after 4 workers, while GNMT's communication times keeps increasing. This effect is probably due to larger values in the shared tensors. 
+
+Time spent optimizing doesn’t seem to follow the same path, but increases are insignificant (~10 seconds), 
+and are due to additional compute steps (averaging tensors, computations related to Mixed precision) when using distribution.
+
+### Performance comparison
+
+Finally, the following figures show the loss evolution (left), Ratio of communication to total time (center), and a price index (right), 
  computed as follows $$ index = \frac{price\_increase}{performance\_increase} $$
 
+#### LSTM
 <a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_loss_ratio_prices.png" data-lightbox="task4a_loss_ratio_prices" data-title="Step times for GNMT">
   ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_loss_ratio_prices.png)
   *Step times for GNMT*
@@ -163,9 +186,16 @@ This could be made faster by using a more appropriate connectivity between the w
 An interesting thing to observe is that the curve of cost index first decreases and has a valley before increasing again, which depicts the limits of distribution for this task. 
 The price to performance increase seems to be the best for 4 workers, but all indices are lower than 1, meaning the cost compromise is worth it for this task.
 
-### Transformer
 
+#### Transformer
+<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_loss_ratio_prices.png" data-lightbox="task4b_loss_ratio_prices" data-title="Step times for Transformer">
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_loss_ratio_prices.png)
+  *Step times for Transformer*
+</a>
 
+Compared to the LSTM model, the communication time ratio is slighly lower, but follows a similar path. For 16 workers, it reaches above 60%. However, the price index has a different shape:
+the observed valley is missing, and the indices are decreasing as we add workers. This suggests a very good performance increase, with a lower price increase. The best configuration 
+according to this index is with 8 workers, but the 16 worker case still has very impressive advantages.
 
 -----
 
