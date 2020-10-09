@@ -13,7 +13,7 @@ and use them as tools to complement and facilitate our everyday lives.
 
 Machine translation is one branch of NLP, and consists of having automated model capable of translating text from one language to another in a few seconds. 
 
-In this blog post, we analyze the performance increase brought by distribution for two different Machine Translation models: an LSTM variant (GNMT) and an attention 
+In this blog post, we analyze the performance increase brought by distributed training for two different Machine Translation models: an LSTM variant (GNMT) and an attention 
 based model (Transformer).
 
 <!--more-->
