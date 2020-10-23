@@ -131,17 +131,6 @@ MLPerf restricts the set of hyperparameters that can be tuned. It also allows us
     <td>Tensorflow, PyTorch</td>
   </tr>
   <tr>
-    <td>Recommendation</td>
-    <td>/</td>
-    <td>Undergoing modification</td>
-    <td>/</td>
-    <td></td>
-    <td>/</td>
-    <td></td>
-    <td>/</td>
-    <td></td>
-  </tr>
-  <tr>
     <td>Reinforcement learning</td>
     <td>/</td>
     <td>N/A</td>
