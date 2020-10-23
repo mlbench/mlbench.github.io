@@ -7,7 +7,7 @@ tags: [mlperf, introduction]
 excerpt_separator: <!--more-->
 ---
 
-MLPerf is a broad benchmark suite for measuring the performance of machine learning (ML) software frameworks, ML hardware platforms and ML cloud platforms. 
+[MLPerf](https://mlperf.org/) is a broad benchmark suite for measuring the performance of machine learning (ML) software frameworks, ML hardware platforms and ML cloud platforms. 
 
 In this post, we will highlight the main differences between MLBench and MLPerf. 
 
