@@ -7,27 +7,30 @@ tags: [performance, results]
 excerpt_separator: <!--more-->
 ---
 
-Natural Language Processing (NLP) has gained a lot of interest in the Machine Learning community. 
-This increasing attention towards the subject may come from the fascination of teaching machines to understand and assimilate human language, 
+The popularity and relevance of Natural Language Processing (NLP) may come from the
+fascination of teaching machines to understand and assimilate human language, 
 and use them as tools to complement and facilitate our everyday lives. 
 
-Machine translation is one branch of NLP, and consists of having automated model capable of translating text from one language to another in a few seconds. 
+Machine translation is one branch of NLP, and consists of having automated model capable of
+ translating text from one language to another almost instantaniously. 
 
-In this blog post, we analyze the performance increase brought by distributed training for two different Machine Translation models: an LSTM variant (GNMT) and an attention 
-based model (Transformer).
+In this blog post, we analyze how distributed learning improves the training time of two different machine translation models:
+an LSTM variant (GNMT) and an attention based model (Transformer).
 
 <!--more-->
 
 Those models present two main limitations that makes training very time consuming:
  - They need millions of data points to reach acceptable performance.
- - Models are quite large, and computations take significantly more time.
+ - Models are quite large (hundreds of millions of parameters), and computations take significant time compared to simpler models.
 
 Each of those problems can be solved using distribution:
- - Distribute the data on multiple machines (data-parallel)
- - Distributed computations on multiple cores (compute-parallel)
+ - Distribute the data on multiple machines (data-parallel).
+ - Distributed computations for one data point on multiple cores (compute-parallel), requires model to be parallelizable.
  
-However the second approach requires the models to be parallelizable. We have only used data-parallel distribution for those tasks, but hope to combine it
-with parallel computation in the future.
+Based on these limitations, we can divide processing of datapoints over multiple workers, 
+or even subdivide the computations required to process a single datapoint.
+In our experiments, we focus on dividing the data (data-parallel).
+We plan to extend these results to model-parallel training in the future.
 
 
 ## Models
@@ -59,7 +62,6 @@ This gives a model with a total of 160,671,297 trainable parameters.
 
 This model was first published in {% cite attention %}, and aims at completely disregarding recurrence and relying entirely on self-attention 
 mechanisms to perform sequence modelling and translation problems. 
-Such a structure allows for better parallelization of training on multiple GPUs, and can reach significantly better performance than comparable models.
 
 Transformer uses Multi-Head attention mechanisms: instead of computing the attention once, it runs through the scaled dot-product attention multiple times
 in parallel.
@@ -93,10 +95,22 @@ $$ Loss = confidence * NLLLoss + smoothing * SmoothLoss $$
 Where $$confidence = 1 - smoothing$$. The smoothing is set to a value of 0.1 for both tasks.
 
 ### Optimization
-As we have seen above, both models have a very high number of parameters to train. This can be an issue when using GPUs, as the model needs to fit in memory.
-Also, back-propagation requires the memory to be at least twice the size of the model for it to work in memory. For that, instead of using regular precision, we used
-mixed-precision training, where most computations are done in `Float16`. We use a centralized version of `Adam`, where gradients are aggregated amongst all workers before 
-updating weights.
+As we have seen above, both models have a very high number of parameters to train.
+This can be an issue when using GPUs, as the model needs to fit in memory, and back-propagation requires the memory to be at least twice the size of the model for it to work in memory.
+
+For example:
+- Transformer has 200 million trainable parameters. In full precision (`Float32`), this results in 800 MB for only storing the weights.
+- Forward pass requires to multiply and store each output. So we add another 800MB for forward pass
+- Each sent/received tensor for other workers will be of 800 MB. For 4 workers this results in 3.2 GB needed
+- Those sent tensors will take longer to be received as they are larger.
+- Backpropagation requires at least 3 to 4 times the amount of memory needed by the model to work, so another 3.2 GB of memory 
+
+Considering those numbers, this results in memory usage of already ~ 8GB, which in reality is much greater as CUDA amd CudNN need also their share of memory.
+From our experiments, a memory of 16GB is far from enough to train those models in full precision.
+
+For that, instead of using regular precision, we used
+mixed-precision training, where most computations are done in `Float16`. We use a synchronous data-parallel version of `Adam`, 
+where gradients are aggregated amongst all workers before updating weights.
 
 ### Datasets
 Both tasks use the same test set, but are trained on slightly different data sets:
@@ -104,7 +118,7 @@ Both tasks use the same test set, but are trained on slightly different data set
 - The Transformer is trained on the English to German World Machine Translation 17 (WMT17) dataset, comprising of 4,590,101.
  
 
-More details on both tasks can be found on our [documentation](https://mlbench.readthedocs.io/en/latest/benchmark-tasks.html#task-4-machine-translation).
+More details on both tasks can be found in our [documentation](https://mlbench.readthedocs.io/en/latest/benchmark-tasks.html#task-4-machine-translation).
 
 ## Results
 
@@ -129,13 +143,15 @@ Speedups are computed with respect to the 1 worker case, and are intended to ill
 The graphs below show the time speedups for the LSTM model and Transformer model (respectively). 
 
 <a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedup.png" data-lightbox="task4a_speedups" data-title="Speedups for GNMT">
-  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedup.png)
   *GNMT Speedups*
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedup.png)
 </a>
 
+<br />
+
 <a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedup.png" data-lightbox="task4b_speedups" data-title="Speedups for Transformer">
-  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedup.png)
   *Transformer Speedups*
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedup.png)
 </a>
 
 The left graph shows the absolute speed ups with respect to one worker, and the right one omits
@@ -143,9 +159,10 @@ communication times from the speed up. This allows us to better see the effect o
 
 
 A few interesting points:
-- Overall speedups follows a $$ log_{2}(n) $$, with `n = num_workers`, while compute are roughly linear.
+- Overall speedups follow a sub-linear pattern, while compute are roughly linear.
 - Scaling the number of compute nodes gives nearly perfect scaling for both tasks (right plot)
-- Using more powerful communication hardware (e.g. Tesla V100) will positively affect speedups.
+- Using more powerful communication hardware (e.g. Tesla V100) will positively affect speedups. We currently have around 10Gbps
+    connection speed between the workers, and such hardware could increase it by a factor of at least 10.
 
 As the distribution level increases, we can see that communication becomes more and more heavy, and attenuates speedups quite significantly.
 
@@ -163,8 +180,12 @@ The next figures show the total time spent in each step of training.
   *Step times for Transformer*
 </a>
 
+- The top left graph in each figure shows the total training time `total = compute + communication`
+- Computation times are `compute = fwd + bwd + opt`
+- Communication times are precisely measured to take only into account communication of tensors between workers.
+
 As expected, we can see that compute steps take less time as we increase the number of nodes,
-while communication increasingly takes more and more time, following a logarithmic path. Interestingly, the Transformer model's communication times quickly reach a plateau
+while communication increasingly takes more and more time, following a sub-linear path. Interestingly, the Transformer model's communication times quickly reach a plateau
 after 4 workers, while GNMT's communication times keeps increasing. This effect is probably due to larger values in the shared tensors. 
 
 Time spent optimizing doesn’t seem to follow the same path, but increases are insignificant (~10 seconds), 
