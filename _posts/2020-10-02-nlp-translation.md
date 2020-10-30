@@ -214,7 +214,10 @@ The price to performance increase seems to be the best for 4 workers, but all in
   *Step times for Transformer*
 </a>
 
-Compared to the LSTM model, the communication time ratio is slighly lower, but follows a similar path. For 16 workers, it reaches above 60%. However, the price index has a different shape:
+Compared to the LSTM model, the communication time ratio is slightly lower, but follows a similar path.
+For 8 workers, LSTM has a communication to total time of 57%, while Transformer 48%.
+For 16 workers, LSTM increases to 75% (31% increase), and Transformer 67% (39% increase).
+However, the price index has a different shape:
 the observed valley is missing, and the indices are decreasing as we add workers. This suggests a very good performance increase, with a lower price increase. The best configuration 
 according to this index is with 8 workers, but the 16 worker case still has very impressive advantages.
 
