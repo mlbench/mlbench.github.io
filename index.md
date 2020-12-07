@@ -5,9 +5,10 @@ title: Home
 <h1>MLBench: Distributed Machine Learning Benchmark</h1>
 
 <hr>
-<a style="display: inline-block" href="https://travis-ci.com/mlbench/mlbench-dashboard"><img src="https://travis-ci.com/mlbench/mlbench-dashboard.svg?branch=develop"></a>
-<a style="display: inline-block" href="https://travis-ci.com/mlbench/mlbench-core"><img src="https://travis-ci.com/mlbench/mlbench-core.svg?branch=develop"></a>
-<a style="display: inline-block" href="https://travis-ci.com/mlbench/mlbench-benchmarks"><img src="https://travis-ci.com/mlbench/mlbench-benchmarks.svg?branch=develop"></a>
+<a style="display: inline-block" href="https://github.com/mlbench/mlbench-core/actions?query=workflow%3Amlbench-core+branch%3Adevelop"><img src="https://github.com/mlbench/mlbench-core/workflows/mlbench-core/badge.svg?branch=develop"></a>
+<a style="display: inline-block" href="https://github.com/mlbench/mlbench-dashboard/actions?query=workflow%3Amlbench-dashboard+branch%3Adevelop"><img src="https://github.com/mlbench/mlbench-dashboard/workflows/mlbench-dashboard/badge.svg?branch=develop"></a>
+<a style="display: inline-block" href="https://github.com/mlbench/mlbench-benchmarks/actions?query=workflow%3Amlbench-benchmarks+branch%3Adevelop"><img src="https://github.com/mlbench/mlbench-benchmarks/workflows/mlbench-benchmarks/badge.svg?branch=develop"></a>
+<a style="display: inline-block" href="https://github.com/mlbench/mlbench-helm/actions?query=workflow%3Amlbench-helm+branch%3Adevelop"><img src="https://github.com/mlbench/mlbench-helm/workflows/mlbench-helm/badge.svg?branch=develop"></a>
 <a style="display: inline-block" href="https://mlbench.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/mlbench/badge/?version=latest" alt="Documentation Status"></a>
 
 
