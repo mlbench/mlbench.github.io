@@ -24,3 +24,5 @@ markdown: kramdown
 
 kramdown:
   toc_levels: 1..2
+
+plugins: ['jekyll/scholar']

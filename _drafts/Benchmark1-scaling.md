@@ -101,12 +101,12 @@ The definitions helm chart values can be found [here](https://mlbench.readthedoc
 
 ## Results
 * Epochs to Top-1 Validation Accuracy
-<a href="{{ site.baseurl }}public/images/scaling-epoch-prec1.png" data-lightbox="Run" data-title="Validation Accuracy @ 1">
-  <img src="{{ site.baseurl }}public/images/scaling-epoch-prec1.png" alt="Validation Accuracy @ 1" style="max-width:80%;"/>
+<a href="{{ site.baseurl }}public/images/blog/drafts/scaling-epoch-prec1.png" data-lightbox="Run" data-title="Validation Accuracy @ 1">
+  <img src="{{ site.baseurl }}public/images/blog/drafts/scaling-epoch-prec1.png" alt="Validation Accuracy @ 1" style="max-width:80%;"/>
 </a>
 * Time to Top-1 Validation Accuracy
-<a href="{{ site.baseurl }}public/images/scaling-time-prec1.png" data-lightbox="Run" data-title="Validation Accuracy @ 1">
-  <img src="{{ site.baseurl }}public/images/scaling-time-prec1.png" alt="Validation Accuracy @ 1" style="max-width:80%;"/>
+<a href="{{ site.baseurl }}public/images/blog/drafts/scaling-time-prec1.png" data-lightbox="Run" data-title="Validation Accuracy @ 1">
+  <img src="{{ site.baseurl }}public/images/blog/drafts/scaling-time-prec1.png" alt="Validation Accuracy @ 1" style="max-width:80%;"/>
 </a>
 
 

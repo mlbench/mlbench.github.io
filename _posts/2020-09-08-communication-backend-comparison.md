@@ -73,8 +73,8 @@ and can be sped up using distributed training.
 #### CPU
 In the graph below, we compare the speeds taken to perform an `all reduce` operation between 2, 4 and 8 workers, of `Float16` and `Float32` CPU tensors.
 
-<a href="{{ site.baseurl }}public/images/backends_comparison_by_workers.png" data-lightbox="backends_comparison_by_workers" data-title="Backend performance comparison (CPU tensors)">
-  <img src="{{ site.baseurl }}public/images/backends_comparison_by_workers.png" alt="Backend performance comparison (CPU tensors)" style="max-width:100%;"/>
+<a href="{{ site.baseurl }}public/images/blog/2020-09-08-communication-backend-comparison/backends_comparison_by_workers.png" data-lightbox="backends_comparison_by_workers" data-title="Backend performance comparison (CPU tensors)">
+  <img src="{{ site.baseurl }}public/images/blog/2020-09-08-communication-backend-comparison/backends_comparison_by_workers.png" alt="Backend performance comparison (CPU tensors)" style="max-width:100%;"/>
 </a>
 
 ##### Key differences
@@ -88,8 +88,8 @@ In the graph below, we compare the speeds taken to perform an `all reduce` opera
 
 We now compare the speeds for GPU tensors. Here, we have the addition of NCCL in the comparison.
 
-<a href="{{ site.baseurl }}public/images/backends_comparison_by_workers_CUDA.png" data-lightbox="backends_comparison_by_workers" data-title="Backend performance comparison (GPU tensors)">
-  <img src="{{ site.baseurl }}public/images/backends_comparison_by_workers_CUDA.png" alt="Backend performance comparison (GPU tensors)" style="max-width:100%;"/>
+<a href="{{ site.baseurl }}public/images/blog/2020-09-08-communication-backend-comparison/backends_comparison_by_workers_CUDA.png" data-lightbox="backends_comparison_by_workers" data-title="Backend performance comparison (GPU tensors)">
+  <img src="{{ site.baseurl }}public/images/blog/2020-09-08-communication-backend-comparison/backends_comparison_by_workers_CUDA.png" alt="Backend performance comparison (GPU tensors)" style="max-width:100%;"/>
 </a>
 
 ##### Key differences

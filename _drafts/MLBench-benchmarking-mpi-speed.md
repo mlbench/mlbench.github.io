@@ -17,8 +17,8 @@ In this experiment, we compare MPI P2P communication for
 CUDA Inter-Process Communication (IPC) improves communication between GPUs on the same node. In openmpi, one can use `--mca btl_smcuda_use_cuda_ipc` to turn on/off this functionality. We demostrate the influence of CUDA-IPC by sending/receiving a vector on a node with two GPUs. 
 
 ### Results
-<a href="{{ site.baseurl }}public/images/mpi-speed-p2p.png" data-lightbox="Run" data-title="MPI Speed P2P">
-  <img src="{{ site.baseurl }}public/images/mpi-speed-p2p.png" alt="MPI Speed P2P" style="max-width:80%;"/>
+<a href="{{ site.baseurl }}public/images/blog/drafts/mpi-speed-p2p.png" data-lightbox="Run" data-title="MPI Speed P2P">
+  <img src="{{ site.baseurl }}public/images/blog/drafts/mpi-speed-p2p.png" alt="MPI Speed P2P" style="max-width:80%;"/>
 </a>
 
 - The P2P communication between two nodes is bounded by network bandwidth (`7.5 Gbit/s` measured by `iperf`). Communicating large vectors on CPU/GPU have similar throughput.
@@ -41,8 +41,8 @@ The connection between GPUs are PHB which traverss PCIe as well as a PCIe Host B
 ### Results
 The results of experiments are shown below. Note that the bandwidth here is calculated by dividing the vector size by the time it spent. The actual bandwidth depends on the implementation of all reduce.
 
-<a href="{{ site.baseurl }}public/images/mpi-speed-collective.png" data-lightbox="Run" data-title="MPI Speed Collective">
-  <img src="{{ site.baseurl }}public/images/mpi-speed-collective.png" alt="MPI Speed Collective" style="max-width:80%;"/>
+<a href="{{ site.baseurl }}public/images/blog/drafts/mpi-speed-collective.png" data-lightbox="Run" data-title="MPI Speed Collective">
+  <img src="{{ site.baseurl }}public/images/blog/drafts/mpi-speed-collective.png" alt="MPI Speed Collective" style="max-width:80%;"/>
 </a>
 
 - The NCCL all reduce does not give better performance when the GPU per machine is 1 or 2.
