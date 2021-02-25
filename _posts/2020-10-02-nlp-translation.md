@@ -142,16 +142,17 @@ Speedups are computed with respect to the 1 worker case, and are intended to ill
 
 The graphs below show the time speedups for the LSTM model and Transformer model (respectively). 
 
-<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedup.png" data-lightbox="task4a_speedups" data-title="Speedups for GNMT">
+<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedups.png" data-lightbox="task4a_speedups" data-title="Speedups for GNMT">
   *GNMT Speedups*
-  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedup.png)
-</a>
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_speedups.png)
+</a> 
+
 
 <br />
 
-<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedup.png" data-lightbox="task4b_speedups" data-title="Speedups for Transformer">
+<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedups.png" data-lightbox="task4b_speedups" data-title="Speedups for Transformer">
   *Transformer Speedups*
-  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedup.png)
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_speedups.png)
 </a>
 
 The left graph shows the absolute speed ups with respect to one worker, and the right one omits
@@ -181,45 +182,49 @@ The next figures show the total time spent in each step of training.
 </a>
 
 - The top left graph in each figure shows the total training time `total = compute + communication`
-- Computation times are `compute = fwd + bwd + opt`
-- Communication times are precisely measured to take only into account communication of tensors between workers.
+- Computation times are `compute = forward + backward + optimization + loss computation + init + end`
+- Communication are only `aggregation` steps, and are precisely measured to take only into account communication of tensors between workers.
 
 As expected, we can see that compute steps take less time as we increase the number of nodes,
-while communication increasingly takes more and more time, following a sub-linear path. Interestingly, the Transformer model's communication times quickly reach a plateau
-after 4 workers, while GNMT's communication times keeps increasing. This effect is probably due to larger values in the shared tensors. 
+while communication increasingly takes more and more time, following a sub-linear path. Looking at both graphs,
+we can see that `aggregation` times increase, but slowly, and reach a plateau quite quickly: the time spent communicating to 8 and 16 workers doesn't differ much.
 
-Time spent optimizing doesn’t seem to follow the same path, but increases are insignificant (~10 seconds), 
-and are due to additional compute steps (averaging tensors, computations related to Mixed precision) when using distribution.
+Other compute steps follow the same pattern, but inversely: Fast decrease in the beginning, and slowly plateaus. The steps that benefit the most from distribution are
+the backpropagation and computing the loss. This makes sense, as batches get smaller for each machine.
+
 
 ### Performance comparison
 
-Finally, the following figures show the loss evolution (left), Ratio of communication to total time (center), and a price index (right), 
- computed as follows $$ index = \frac{price\_increase}{performance\_increase} $$
+Finally, the following figures show the share of time spent for each step of training. The *Aggregation* step corresponds to the aggregation of weights between the workers,
+and is the only step where communication happens.
 
 #### LSTM
-<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_loss_ratio_prices.png" data-lightbox="task4a_loss_ratio_prices" data-title="Step times for GNMT">
-  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_loss_ratio_prices.png)
-  *Step times for GNMT*
+<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_step_shares.png" data-lightbox="task4a_step_shares" data-title="Step shares for GNMT">
+  *Step shares for GNMT*
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4a_step_shares.png)
 </a>
 
-Communication takes up a huge part of training as we increase distribution:  over 70% of the time is spent sending tensors for 16 workers. 
+Communication takes up a huge part of training as we increase distribution:  around 80% of the time is spent sending tensors for 16 workers !
 This could be made faster by using a more appropriate connectivity between the workers (currently it is at 10GB/s) that can reduce times by a factor of 10 or more.
-An interesting thing to observe is that the curve of cost index first decreases and has a valley before increasing again, which depicts the limits of distribution for this task. 
-The price to performance increase seems to be the best for 4 workers, but all indices are lower than 1, meaning the cost compromise is worth it for this task.
+
+We can clearly see the limits of the used hardware here: communication quickly becomes the bottleneck, as very large tensors are shared between increasing number of workers.
+Here, *All Reduce* aggregation of gradients is performed before the optimization step, which yields a lot of exchanged messages. It would be interesting to see how the time spent communicating
+tensors can be reduced by using a more advanced aggregation technique (e.g. sharing with neighbors in a pre-defined topology)
 
 
 #### Transformer
-<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_loss_ratio_prices.png" data-lightbox="task4b_loss_ratio_prices" data-title="Step times for Transformer">
-  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_loss_ratio_prices.png)
-  *Step times for Transformer*
+<a href="{{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_step_shares.png" data-lightbox="task4b_step_shares" data-title="Step shares for Transformer">
+  *Step shares for Transformer*
+  ![test]({{ site.baseurl }}public/images/blog/2020-10-02-nlp-translation/task4b_step_shares.png)
 </a>
 
-Compared to the LSTM model, the communication time ratio is slightly lower, but follows a similar path.
-For 8 workers, LSTM has a communication to total time of 57%, while Transformer 48%.
-For 16 workers, LSTM increases to 75% (31% increase), and Transformer 67% (39% increase).
-However, the price index has a different shape:
-the observed valley is missing, and the indices are decreasing as we add workers. This suggests a very good performance increase, with a lower price increase. The best configuration 
-according to this index is with 8 workers, but the 16 worker case still has very impressive advantages.
+Compared to the LSTM model, the communication time ratio follows a similar path. However, as this model does not use LSTM layers, overall time is lower.
+
+## Conclusion
+Both models solve an identical task, with almost identical datasets, and similar training algorithm, but use very different models. It is hence interesting to see how both react to distribution.  
+These similar results show that both models benefit similarly from multiple workers, and are both very quickly bottlenecked by the communication hardware. Here, nodes communicate over a regular high speed
+network, which mimics a real "distributed" training environment, where machines could be in different locations. Using direct, or higher performance communication between the nodes (e.g. NVLink, or Google's Virtual NIC)
+we would observe speedups close to the compute speedups, so close to linear speedups for both models.
 
 -----
 
